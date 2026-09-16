@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="dashboard">
+
+    <!-- LEFT SIDE -->
+    <div>
+
+       
+        <div class="card">
+            <h2>Manage Skills</h2>
+
+            <form method="POST">
+
+                <label>Skills You Can Teach</label>
+                <div class="skill-box">
+                    {% for skill in skills_list %}
+                    <div class="skill-item">
+                        <input type="checkbox" name="teach_skills" value="{{skill}}">
+                        {{skill}}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <br>
+
+                <label>Skills You Want To Learn</label>
+                <div class="skill-box">
+                    {% for skill in skills_list %}
+                    <div class="skill-item">
+                        <input type="checkbox" name="learn_skills" value="{{skill}}">
+                        {{skill}}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <br>
+
+                <button>Save Skills</button>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div>
+
+        <div class="card">
+            <h2>Your Profile</h2>
+
+            <div class="profile">
+                <b>Can Teach:</b><br>
+                {{skills[0] if skills else "None"}}
+            </div>
+
+            <div class="profile">
+                <b>Wants To Learn:</b><br>
+                {{skills[1] if skills else "None"}}
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Matches and Requests</h2>
+
+            <button onclick="location.href='/match'" style="margin-bottom:12px;">
+                Find Peers
+            </button>
+
+            <button onclick="location.href='/sessions'">
+                View Requests
+            </button>
+        </div>
+
+        <div class="card">
+            <h2>My Sessions</h2>
+
+            {% if my_sessions %}
+                {% for s in my_sessions %}
+                <div class="peer-card">
+                    <b>{{s[1]}}</b><br>
+                    <small>with {{s[0]}}</small><br>
+                    <small>{{s[2]}}</small>
+
+                    <a href="/chat/{{s[0]}}" style="color:#007bff; font-weight:bold; text-decoration:none;">Start Chat</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No sessions yet</p>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

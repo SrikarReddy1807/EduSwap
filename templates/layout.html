@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EduSwap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="navbar">
+
+        <div class="logo-section">
+            <img src="{{ url_for('static', filename='logo.png') }}" class="logo-img">
+
+            <div>
+                <div class="logo-text">EduSwap</div>
+                <div class="tag">Skill Based Matchmaking</div>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            {% if request.path != '/register' and request.path != '/login' %}
+                <span class="user">{{session['user']}}</span>
+                <a href="/logout" class="logout">Logout</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="main-container">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

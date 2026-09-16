@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card">
+<h2>Sessions</h2>
+
+{% for r in requests %}
+
+<div class="peer-card">
+
+{% if r[1] == session['user'] %}
+<b>Teacher:</b> {{r[2]}} <br>
+{% else %}
+<b>Learner:</b> {{r[1]}} <br>
+{% endif %}
+
+<b>Skill:</b> {{r[3]}} <br>
+<b>Time:</b> {{r[4]}} <br>
+
+Status:
+
+{% if r[5]=='Accepted' %}
+<span class="accept">Accepted</span><br>
+
+<a href="/chat/{% if r[1]==session['user'] %}{{r[2]}}{% else %}{{r[1]}}{% endif %}"
+style="color:#007bff; font-weight:bold; text-decoration:none;">
+Start Chat
+</a>
+
+{% elif r[5]=='Rejected' %}
+<span class="reject">Rejected</span>
+
+{% else %}
+
+{% if r[2] == session['user'] %}
+<a href="/update_session/{{r[0]}}/accept">Accept</a> |
+<a href="/update_session/{{r[0]}}/reject">Reject</a>
+{% else %}
+<span>Pending Approval</span>
+{% endif %}
+
+{% endif %}
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

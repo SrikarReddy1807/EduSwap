@@ -1,0 +1,10 @@
+import sqlite3
+uid = int(input("Enter User ID to delete: "))
+conn = sqlite3.connect("database.db")
+cur = conn.cursor()
+cur.execute("DELETE FROM sessions WHERE learner_id=? OR mentor_id=?", (uid, uid))
+cur.execute("DELETE FROM skills WHERE user_id=?", (uid,))
+cur.execute("DELETE FROM users WHERE id=?", (uid,))
+conn.commit()
+conn.close()
+print("Profile deleted successfully")

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card">
+<h2>Peer Matches</h2>
+
+{% for peer in peers %}
+
+<div class="peer-card">
+
+<b>{{peer[0]}}</b><br>
+
+<!-- CAN TEACH -->
+<div style="margin-top:8px; margin-bottom:15px;">
+<b>Can Teach:</b>
+{% for skill in peer[1] %}
+<span>{{skill}}</span>{% if not loop.last %}, {% endif %}
+{% endfor %}
+</div>
+
+<form method="POST" action="/request_session">
+
+<input type="hidden" name="teacher" value="{{peer[0]}}">
+
+<!-- SELECT SKILL -->
+<label style="margin-top:5px;">Select Skill</label>
+<select name="skill" required style="width:100%; padding:10px; border-radius:8px; margin-bottom:15px;">
+    {% for skill in peer[1] %}
+    <option value="{{skill}}">{{skill}}</option>
+    {% endfor %}
+</select>
+
+<!-- DATE -->
+<label>Select Date</label>
+<input type="date" name="date" required style="margin-bottom:15px;">
+
+<!-- TIME -->
+<label>Select Time</label>
+<input type="time" name="time" required style="margin-bottom:15px;">
+
+<button>Request Session</button>
+
+</form>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}

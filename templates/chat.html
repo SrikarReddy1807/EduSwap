@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="card">
+<h2>Chat with {{peer}}</h2>
+
+<div id="chat-box" style="height:300px; overflow-y:auto; border:1px solid #ccc; padding:10px;"></div>
+
+<input id="msg" placeholder="Type message">
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+<script>
+
+function loadMessages(){
+    fetch("/get_messages/{{peer}}")
+    .then(res => res.json())
+    .then(data => {
+        let box = document.getElementById("chat-box");
+        box.innerHTML = "";
+
+        data.messages.forEach(m => {
+            box.innerHTML += "<p><b>"+m[0]+":</b> "+m[1]+"</p>";
+        });
+
+        box.scrollTop = box.scrollHeight;
+    });
+}
+
+function sendMessage(){
+    let msg = document.getElementById("msg").value;
+
+    fetch("/send_message", {
+        method:"POST",
+        headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body:`receiver={{peer}}&message=${msg}`
+    }).then(()=>{
+        document.getElementById("msg").value="";
+        loadMessages();
+    });
+}
+
+setInterval(loadMessages, 2000);
+loadMessages();
+
+</script>
+
+{% endblock %}

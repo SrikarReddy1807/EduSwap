@@ -217,7 +217,7 @@ The platform can be further enhanced with:
 
 ## Developer
 
-**Srikar Reddy**
+**Vellanki Srikar Reddy**
 
 GitHub: https://github.com/SrikarReddy1807
 
@@ -225,6 +225,3 @@ Repository: https://github.com/SrikarReddy1807/EduSwap
 
 ---
 
-## License
-
-This project is developed for educational and academic purposes.
